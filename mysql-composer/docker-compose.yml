@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+   db:
+    container_name: guac-mysql       
+    image: mysql:latest
+    restart: unless-stopped
+    networks:
+      - guac
+    volumes: 
+      - mysqldata:/var/lib/mysql
+      - ./db-prep:/tmp/scripts
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+volumes: 
+  mysqldata:
+
+networks:
+  guac:
+    driver: bridge

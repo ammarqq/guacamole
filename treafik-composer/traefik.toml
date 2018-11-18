@@ -1,0 +1,38 @@
+debug = false
+
+logLevel = "ERROR"
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+	[entryPoints.http.redirect]
+	entryPoint = "https"
+	[entryPoints.https]
+	address = ":443"
+	[entryPoints.https.tls]
+
+	[retry]
+
+[web]
+address = ":8080"
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "docker.localhost"
+watch = true
+exposedbydefault = false
+
+[acme]
+email = "matteo.creati@gmail.com"
+storage = "acme.json"
+entryPoint = "https"
+OnHostRule = true
+[acme.httpChallenge]
+	entryPoint = "http"
+
+[[acme.domains]]
+  main = "monitor.fluxcapacitor.cloud"
+[[acme.domains]]
+  main = "guacamole.fluxcapacitor.cloud"
+
