@@ -18,8 +18,8 @@ services:
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - traefik.toml:/traefik.toml
-      - acme.json:/acme.json
+      - ~/guacamole/treafik-composer/traefik.toml:/traefik.toml
+      - ~/guacamole/treafik-composer/acme.json:/acme.json
     labels:
-      - traefik.frontend.rule=Host:monitor.fluxcapacitor.cloud
+      - traefik.frontend.rule=Host:monitor.octotrading.it
       - traefik.port=8080

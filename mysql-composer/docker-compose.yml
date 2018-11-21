@@ -18,7 +18,6 @@ services:
 
 volumes: 
   mysqldata:
-
 networks:
   guac:
     driver: bridge
