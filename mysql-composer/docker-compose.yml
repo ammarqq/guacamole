@@ -4,7 +4,9 @@ services:
    db:
     container_name: guac-mysql       
     image: mysql:latest
-    restart: unless-stopped
+    build:
+      context: .
+	restart: unless-stopped
     networks:
       - guac
     volumes: 

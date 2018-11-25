@@ -9,7 +9,7 @@ services:
       - guac 
    guacamole: 
     container_name: guacamole
-    image: guacamole/guacamole:0.9.14
+    image: guacamole/guacamole
     restart: unless-stopped
     networks:
       - guac
@@ -22,17 +22,17 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      LDAP_HOSTNAME: 10.10.0.4
-      LDAP_PORT: 389
-      LDAP_USER_BASE_DN: OU=XTUsers,DC=ITXTVTest,DC=internal
-      LDAP_CONFIG_BASE_DN: CN=Users,DC=ITXTVTest,DC=internal
-      LDAP_SEARCH_BIND_DN: CN=SA.Guacamole,OU=ServiceAccounts,DC=ITXTVTest,DC=internal
-      LDAP_USERNAME_ATTRIBUTE: sAMAccountName
-      LDAP_SEARCH_BIND_PASSWORD: Cbr600rr!
+      LDAP_HOSTNAME: ${LDAP_HOSTNAME}
+      LDAP_PORT: ${LDAP_PORT}
+      LDAP_USER_BASE_DN: ${LDAP_USER_BASE_DN}
+      LDAP_CONFIG_BASE_DN: ${LDAP_CONFIG_BASE_DN}
+      LDAP_SEARCH_BIND_DN: ${LDAP_SEARCH_BIND_DN}
+      LDAP_USERNAME_ATTRIBUTE: ${LDAP_USERNAME_ATTRIBUTE}
+      LDAP_SEARCH_BIND_PASSWORD: ${LDAP_SEARCH_BIND_PASSWORD}
     labels:
       - "traefik.backend=guacamole"
       - "traefik.docker.network=proxy"
-      - "traefik.frontend.rule=Host:guacamole.octotrading.it"
+      - "traefik.frontend.rule=Host:publicdnsname"
       - "traefik.enable=true"
       - "traefik.port=8080"
       - "traefik.default.protocol=http"
