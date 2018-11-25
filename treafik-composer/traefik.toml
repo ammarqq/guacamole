@@ -30,7 +30,7 @@ watch = true
 exposedbydefault = false
 
 [acme]
-email = "matteo.creati@gmail.com"
+email = "DOMAINOWNER@EMAIL.com"
 storage = "acme.json"
 entryPoint = "https"
 OnHostRule = true
@@ -38,7 +38,7 @@ OnHostRule = true
 	entryPoint = "http"
 
 [[acme.domains]]
-  main = "guacamole.octotrading.it"
+  main = "FQDN1"
 [[acme.domains]]
-  main = "monitor.octotrading.it"
+  main = "FQDN2"
 
