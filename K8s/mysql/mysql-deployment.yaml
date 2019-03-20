@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: guacamole-mysql
+  labels:
+    app: guacamole
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: guacamole
+    tier: mysql
+  clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: guacamole-mysql
+  labels:
+    app: guacamole
+spec:
+  selector:
+    matchLabels:
+      app: guacamole
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: guacamole
+        tier: mysql
+    spec:
+      containers:
+      - image: mysql:5.7
+        args:
+        - "--ignore-db-dir=lost+found"
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+        - name: mysql-initdb
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-managed-disk
+      - name: mysql-initdb
+        configMap:
+          name: example-mysql-guac 

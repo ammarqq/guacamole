@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: guacd
+  labels:
+    run: guacd
+spec:
+  ports:
+  - name: guacd
+    targetPort: 4822
+    port: 4822
+  selector:
+    run: guacd
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: guacamole
+  labels:
+    run: guacamole
+spec:
+  ports:
+  - name: guacamole
+    targetPort: 8080
+    port: 8080
+  selector:
+    run: guacamole

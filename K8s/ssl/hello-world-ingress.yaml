@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-world-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - guacamole.fluxcapacitor.cloud 
+    secretName: tls-secret
+  rules:
+  - host: guacamole.fluxcapacitor.cloud 
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: guacamole
+          servicePort: 8080
